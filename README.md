@@ -8,6 +8,13 @@ Certain values are basically guaranteed to be wrong and methods are missing due 
 
 ### Basic Usage
 
+Install it with:
+```shell
+pip install skelmis-f1-fantasy
+```
+
+#### Show current best rankings in private leagues
+
 - Navigate to https://fantasy.formula1.com
 - Open dev tools for your browser (typically F12)
 - Click `Network`
@@ -18,9 +25,9 @@ Certain values are basically guaranteed to be wrong and methods are missing due 
 - See below example.
 
 ```python
-import os
 import asyncio
 
+# pip install skelmis-f1-fantasy
 from fantasy import Client, APIClient
 
 
