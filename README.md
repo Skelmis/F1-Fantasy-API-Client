@@ -18,7 +18,7 @@ A mildy janky implementation letting you browser the F1 fantasy data set. Certai
 ```python
 import asyncio
 
-from skelmis import fantasy
+import fantasy
 
 
 async def main():
