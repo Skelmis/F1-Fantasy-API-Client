@@ -1,7 +1,9 @@
 F1 Fantasy API Client
 ---
 
-A mildy janky implementation letting you browser the F1 fantasy data set. Certain values are guaranteed to be wrong and methods missing due to a lack of public methods. This is a best guess implementation, and I'd love any feedback.
+A mildy jank implementation letting you browse the F1 fantasy data set. 
+
+Certain values are basically guaranteed to be wrong and methods are missing due to a lack of public data. Therefore, this is a best guess implementation, and I'd love any feedback.
 
 
 ### Basic Usage
