@@ -16,23 +16,34 @@ A mildy janky implementation letting you browser the F1 fantasy data set. Certai
 - See below example.
 
 ```python
+import os
 import asyncio
 
-import fantasy
+from fantasy import Client, APIClient
 
 
 async def main():
-    client = fantasy.Client(
-        fantasy.APIClient(
-            user_guid="GUID HERE",
-            token="TOKEN HERE"
+    """Shows your highest place in all your private leagues."""
+    client = Client(
+        APIClient(
+            user_guid=os.environ["USER_GUID"],
+            token=os.environ["TOKEN"],
         )
     )
-    race_id = await client.api.get_current_race_id()
-    data = await client.api.get_my_teams(race_id)
-    print(data)
+
+    user_leagues = await client.get_user_leagues()
+    for league in user_leagues.leagues:
+        leaderboard = await client.get_private_league_leaderboard(league.league_id)
+        ranks = [i.rank_in_league for i in league.teams_in_league]
+        print(f"League: {leaderboard.league_name}\n\tBest rank: {max(ranks)}")
 
 
 if __name__ == "__main__":
     asyncio.run(main())
 ```
+
+### Further Usage
+
+The class `fantasy.Client` exposes all the nice data models, however many are missing.
+
+If you want full access, use `fantasy.APIClient` which implements significantly more but provides the data as the API does which is hard to work with.

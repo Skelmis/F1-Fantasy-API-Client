@@ -31,6 +31,9 @@ class APIClient:
     async def _handle_api_call(self, url: str, model):
         data = await self.request("GET", url)
 
+        if data["Data"] is None:
+            raise ValueError(data["Meta"])
+
         if isinstance(data["Data"]["Value"], list):
             return model(data=data["Data"]["Value"])
 

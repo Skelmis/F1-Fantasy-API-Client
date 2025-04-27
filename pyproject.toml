@@ -17,6 +17,7 @@ requires-python = ">=3.13"
 dependencies = [
     "httpx>=0.28.1",
     "pydantic>=2.11.3",
+    "skelmis-commons>=1.5.2",
 ]
 
 [dependency-groups]
