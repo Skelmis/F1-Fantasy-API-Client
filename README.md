@@ -28,8 +28,8 @@ async def main():
     """Shows your highest place in all your private leagues."""
     client = Client(
         APIClient(
-            user_guid=os.environ["USER_GUID"],
-            token=os.environ["TOKEN"],
+            user_guid="GUID Here",
+            token="Token Here",
         )
     )
 
