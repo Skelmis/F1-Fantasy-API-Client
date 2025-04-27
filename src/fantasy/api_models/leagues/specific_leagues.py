@@ -1,10 +1,8 @@
 from __future__ import annotations
 
-from typing import List, Optional
-
 from pydantic import BaseModel
 
-from skelmis.fantasy.api_models.encoder import URLEncodedStr
+from fantasy.api_models.encoder import URLEncodedStr
 
 
 class TeamInfoItem(BaseModel):
@@ -12,27 +10,21 @@ class TeamInfoItem(BaseModel):
     userRank: int
 
 
-class Tag(BaseModel):
-    id: int
-    name: str
-
-
-class Detail(BaseModel):
+class League(BaseModel):
     isProfaneNameFlag: int
     leagueVIPFlag: int
-    createdDate: None
+    createdDate: str
     isenableforusers: int
     raceWeek: None
     locktime: None
-    disableonList: int
-    showonList: int
+    disableonlist: int
+    showonlist: int
     isWebPurifyCalled: int
-    publicDefault: Optional[str]
+    publicDefault: None
     showLeaderBoard: int
     bannerUrlFlag: int
     bannerUrl: str
     bannerInternalUrl: str
-    orderNo: int
     leagueId: str
     leagueName: URLEncodedStr
     leagueCode: str
@@ -40,7 +32,7 @@ class Detail(BaseModel):
     isProfanity: str
     isSystemNameUpd: int
     memberCount: str
-    teamInfo: Optional[List[TeamInfoItem]]
+    teamInfo: list[TeamInfoItem]
     leagueType: str
     rno: int
     isReportFlag: int
@@ -55,16 +47,18 @@ class Detail(BaseModel):
     isPopular: int
     isNew: int
     isJoined: int
-    tag: Tag
+    tag: None
 
 
-class Count(BaseModel):
+class TotalLeaguesCount(BaseModel):
+    """How many leagues your user is in."""
+
     privateCount: int
     classicCount: int
     miniCount: int
     H2HCount: int
 
 
-class FeaturedLeaguesResponse(BaseModel):
-    Details: List[Detail]
-    Count: Count
+class SpecificLeagueResponse(BaseModel):
+    Details: list[League]
+    Count: TotalLeaguesCount

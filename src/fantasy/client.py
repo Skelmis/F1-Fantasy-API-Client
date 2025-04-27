@@ -5,7 +5,7 @@ from typing import Literal
 
 import httpx
 
-from skelmis.fantasy import api_models
+from fantasy import api_models
 
 
 class Client:

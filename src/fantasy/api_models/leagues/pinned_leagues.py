@@ -1,8 +1,10 @@
 from __future__ import annotations
 
+from typing import List
+
 from pydantic import BaseModel
 
-from skelmis.fantasy.api_models.encoder import URLEncodedStr
+from fantasy.api_models.encoder import URLEncodedStr
 
 
 class TeamInfoItem(BaseModel):
@@ -10,15 +12,15 @@ class TeamInfoItem(BaseModel):
     userRank: int
 
 
-class League(BaseModel):
+class Detail(BaseModel):
     isProfaneNameFlag: int
     leagueVIPFlag: int
     createdDate: str
     isenableforusers: int
     raceWeek: None
     locktime: None
-    disableonlist: int
-    showonlist: int
+    disableonList: int
+    showonList: int
     isWebPurifyCalled: int
     publicDefault: None
     showLeaderBoard: int
@@ -32,7 +34,7 @@ class League(BaseModel):
     isProfanity: str
     isSystemNameUpd: int
     memberCount: str
-    teamInfo: list[TeamInfoItem]
+    teamInfo: List[TeamInfoItem]
     leagueType: str
     rno: int
     isReportFlag: int
@@ -50,15 +52,13 @@ class League(BaseModel):
     tag: None
 
 
-class TotalLeaguesCount(BaseModel):
-    """How many leagues your user is in."""
-
+class Count(BaseModel):
     privateCount: int
     classicCount: int
     miniCount: int
     H2HCount: int
 
 
-class SpecificLeagueResponse(BaseModel):
-    Details: list[League]
-    Count: TotalLeaguesCount
+class PinnedLeaguesResponse(BaseModel):
+    Details: List[Detail]
+    Count: Count

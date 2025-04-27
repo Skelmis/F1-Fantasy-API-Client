@@ -2,7 +2,7 @@ from typing import Optional
 
 from pydantic import BaseModel
 
-from skelmis.fantasy.api_models.encoder import URLEncodedStr
+from fantasy.api_models.encoder import URLEncodedStr
 
 
 class PlayeridItem(BaseModel):

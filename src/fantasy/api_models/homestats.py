@@ -2,7 +2,7 @@ from typing import Annotated
 
 from pydantic import BaseModel, EncodedStr
 
-from skelmis.fantasy.api_models.encoder import URLEncodedStr
+from fantasy.api_models.encoder import URLEncodedStr
 
 
 class BestDriver(BaseModel):
