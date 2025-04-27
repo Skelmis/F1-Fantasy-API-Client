@@ -1,11 +1,13 @@
 import asyncio
 import os
 
-from fantasy import Client
+from fantasy import APIClient
 
 
 async def main():
-    client: Client = await Client.login(os.environ["username"], os.environ["password"])
+    client: APIClient = await APIClient.login(
+        os.environ["username"], os.environ["password"]
+    )
 
 
 if __name__ == "__main__":

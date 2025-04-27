@@ -23,11 +23,13 @@ import fantasy
 
 async def main():
     client = fantasy.Client(
-        user_guid="GUID HERE",
-        token="TOKEN HERE"
+        fantasy.APIClient(
+            user_guid="GUID HERE",
+            token="TOKEN HERE"
+        )
     )
-    race_id = await client.get_current_race_id()
-    data = await client.get_my_teams(race_id)
+    race_id = await client.api.get_current_race_id()
+    data = await client.api.get_my_teams(race_id)
     print(data)
 
 

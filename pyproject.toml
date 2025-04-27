@@ -1,6 +1,6 @@
 [project]
 name = "skelmis-f1-fantasy"
-version = "0.1.0"
+version = "0.2.0"
 description = "A performant, typed API for the Formula 1 Fantasy game ."
 readme = "README.md"
 authors = [
