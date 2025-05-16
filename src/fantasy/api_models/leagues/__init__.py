@@ -7,3 +7,4 @@ from .pinned_leagues import PinnedLeaguesResponse
 from .featured_leagues import FeaturedLeaguesResponse
 from .private_league_leaderboard import PrivateLeagueLeaderboardResponse
 from .user_leagues import UserLeaguesResponse
+from .league_team import LeagueTeam

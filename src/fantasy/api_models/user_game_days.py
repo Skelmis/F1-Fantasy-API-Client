@@ -45,14 +45,14 @@ class BestDriverOverallItem(BaseModel):
 
 class Userhome(BaseModel):
     teanNo: int
-    ovPoints: float
-    racePoints: RacePoints
-    overallBestweek: OverallBestweek
-    bestDriverWeek: List[BestDriverWeekItem]
-    bestDriverOverall: List[BestDriverOverallItem]
-    totalTransfer: int
-    freeTransfer: int
-    nigativeTransfer: int
+    ovPoints: float | None
+    racePoints: RacePoints | None
+    overallBestweek: OverallBestweek | None
+    bestDriverWeek: List[BestDriverWeekItem] | None
+    bestDriverOverall: List[BestDriverOverallItem] | None
+    totalTransfer: int | None
+    freeTransfer: int | None
+    nigativeTransfer: int | None
 
 
 class ValueItem(BaseModel):

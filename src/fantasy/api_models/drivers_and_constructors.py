@@ -62,7 +62,7 @@ class ConstructorOrDriverItem(BaseModel):
     FirstName: str
     LastName: str
     SessionWisePoints: List[SessionWisePoint]
-    AdditionalStats: AdditionalStats
+    AdditionalStats: AdditionalStats | None
     old_Value: float
     new_value: float
     ProjectedGamedayPoints: str
@@ -70,5 +70,5 @@ class ConstructorOrDriverItem(BaseModel):
     ProjectedOverallPpints: str
 
 
-class DriversAndConstructorsResponse:
+class DriversAndConstructorsResponse(BaseModel):
     data: list[ConstructorOrDriverItem]

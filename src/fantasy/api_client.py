@@ -179,6 +179,33 @@ class APIClient:
             api_models.UserGameDaysResponse,
         )
 
+    async def fetch_team_in_private_league(
+        self, team_id: str, race_id: int
+    ) -> api_models.leagues.LeagueTeam:
+        """Fetches a team from a league.
+
+        Parameters
+        ----------
+        team_id: str
+            The team to fetch
+        race_id: int
+            The race ID to get the drivers and constructors for.
+
+            1 indexed from the start of the year.
+
+            Historical data appears to be fetchable via older race ids.
+
+            To get the current race id, call get_current_race_id()
+
+        Returns
+        -------
+            api_models.leagues.LeagueTeam
+        """
+        return await self._handle_api_call(
+            f"https://fantasy.formula1.com/services/user/opponentteam/opponentgamedayplayerteamget/1/{team_id}/1/{race_id}/1",
+            api_models.leagues.LeagueTeam,
+        )
+
     async def get_current_race_id(self) -> int:
         """Fetches the current race id.
 

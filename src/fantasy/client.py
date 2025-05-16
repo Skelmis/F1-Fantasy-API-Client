@@ -5,6 +5,8 @@ import typing
 import commons
 
 from fantasy import models
+from fantasy.api_models.drivers_and_constructors import ConstructorOrDriverItem
+from fantasy.api_models.list_user_teams import UserTeamItem
 from fantasy.models import leagues
 
 if typing.TYPE_CHECKING:
@@ -14,6 +16,22 @@ if typing.TYPE_CHECKING:
 class Client:
     def __init__(self, api_client: APIClient):
         self.api: APIClient = api_client
+
+    @staticmethod
+    def float(value: typing.Any) -> float:
+        """Helper function for string transforms"""
+        try:
+            return float(value)
+        except:
+            return 0.0
+
+    @staticmethod
+    def int(value: typing.Any) -> float:
+        """Helper function for string transforms"""
+        try:
+            return int(value)
+        except:
+            return 0
 
     async def get_private_league_leaderboard(
         self, league_id: int
@@ -100,4 +118,216 @@ class Client:
             total_count=raw_data.leaguestotcnt,
             vip_count=raw_data.leaguesvipcnt,
             classic_leagues_count=raw_data.leaguesclassiccnt,
+        )
+
+    async def fetch_constructors_and_drivers(
+        self, race_id: int
+    ) -> list[models.Driver | models.Constructor]:
+        """Fetch all drivers and constructors for a given race.
+
+        Parameters
+        ----------
+        race_id: int
+            The race ID to get the drivers and constructors for.
+
+            1 indexed from the start of the year.
+
+            To get the current race id, call api.get_current_race_id()
+
+        Returns
+        -------
+        list[models.Driver| models.Constructor]
+        """
+        data: list[models.Driver | models.Constructor] = []
+        raw_data = await self.api.get_drivers_and_constructors(race_id)
+        for entry in raw_data.data:
+            entry = typing.cast(ConstructorOrDriverItem, entry)
+            if entry.PositionName == "DRIVER":
+                data.append(
+                    models.Driver(
+                        skill=entry.Skill,
+                        value=entry.Value,
+                        full_name=entry.FUllName,
+                        display_name=entry.DisplayName,
+                        team_name=entry.TeamName,
+                        status=entry.Status,
+                        is_active=commons.value_to_bool(entry.IsActive),
+                        driver_tla=entry.DriverTLA,
+                        driver_reference=entry.DriverReference,
+                        country_name=entry.CountryName,
+                        overall_points=self.float(entry.OverallPpints),
+                        points_in_this_race=self.float(entry.GamedayPoints),
+                        percentage_selected=self.float(entry.SelectedPercentage),
+                        percentage_as_2x=self.float(entry.CaptainSelectedPercentage),
+                        best_race_finish=self.int(entry.BestRaceFinished),
+                        highest_grid_start=self.int(entry.HigestGridStart),
+                        qualy_points=self.float(entry.QualifyingPoints),
+                        race_points=self.float(entry.RacePoints),
+                        sprint_points=self.float(entry.SprintPoints),
+                        no_negative_points=self.float(entry.NoNegativePoints),
+                        f1_player_id=entry.F1PlayerId,
+                        first_name=entry.FirstName,
+                        last_name=entry.LastName,
+                        fastest_lap_points=(
+                            self.float(entry.AdditionalStats.fastest_lap_pts)
+                            if entry.AdditionalStats
+                            else None
+                        ),
+                        driver_of_the_day_points=(
+                            self.float(entry.AdditionalStats.fastest_lap_pts)
+                            if entry.AdditionalStats
+                            else None
+                        ),
+                        overtaking_points=(
+                            self.float(entry.AdditionalStats.fastest_lap_pts)
+                            if entry.AdditionalStats
+                            else None
+                        ),
+                        q3_finishes_points=(
+                            self.float(entry.AdditionalStats.fastest_lap_pts)
+                            if entry.AdditionalStats
+                            else None
+                        ),
+                        top_10_race_positions_points=(
+                            self.float(entry.AdditionalStats.fastest_lap_pts)
+                            if entry.AdditionalStats
+                            else None
+                        ),
+                        top_8_sprint_positions_points=(
+                            self.float(entry.AdditionalStats.fastest_lap_pts)
+                            if entry.AdditionalStats
+                            else None
+                        ),
+                        total_position_points=(
+                            self.float(entry.AdditionalStats.fastest_lap_pts)
+                            if entry.AdditionalStats
+                            else None
+                        ),
+                        total_position_gained_lost=(
+                            self.float(entry.AdditionalStats.fastest_lap_pts)
+                            if entry.AdditionalStats
+                            else None
+                        ),
+                        total_dnf_dq_points=(
+                            self.float(entry.AdditionalStats.fastest_lap_pts)
+                            if entry.AdditionalStats
+                            else None
+                        ),
+                        value_for_money=(
+                            self.float(entry.AdditionalStats.value_for_money)
+                            if entry.AdditionalStats
+                            else None
+                        ),
+                        raw_api_model=entry,
+                    )
+                )
+            elif entry.PositionName == "CONSTRUCTOR":
+                data.append(
+                    models.Constructor(
+                        skill=entry.Skill,
+                        value=entry.Value,
+                        full_name=entry.FUllName,
+                        display_name=entry.DisplayName,
+                        team_name=entry.TeamName,
+                        overall_points=self.float(entry.OverallPpints),
+                        points_in_this_race=self.float(entry.GamedayPoints),
+                        percentage_selected=self.float(entry.SelectedPercentage),
+                        percentage_as_2x=self.float(entry.CaptainSelectedPercentage),
+                        best_race_finish=self.int(entry.BestRaceFinished),
+                        highest_grid_start=self.int(entry.HigestGridStart),
+                        qualy_points=self.float(entry.QualifyingPoints),
+                        race_points=self.float(entry.RacePoints),
+                        sprint_points=self.float(entry.SprintPoints),
+                        no_negative_points=self.float(entry.NoNegativePoints),
+                        f1_player_id=entry.F1PlayerId,
+                        first_name=entry.FirstName,
+                        last_name=entry.LastName,
+                        fastest_lap_points=self.float(
+                            entry.AdditionalStats.fastest_lap_pts
+                        ),
+                        driver_of_the_day_points=self.float(
+                            entry.AdditionalStats.fastest_lap_pts
+                        ),
+                        overtaking_points=self.float(
+                            entry.AdditionalStats.fastest_lap_pts
+                        ),
+                        q3_finishes_points=self.float(
+                            entry.AdditionalStats.fastest_lap_pts
+                        ),
+                        top_10_race_positions_points=self.float(
+                            entry.AdditionalStats.fastest_lap_pts
+                        ),
+                        top_8_sprint_positions_points=self.float(
+                            entry.AdditionalStats.fastest_lap_pts
+                        ),
+                        total_position_points=self.float(
+                            entry.AdditionalStats.fastest_lap_pts
+                        ),
+                        total_position_gained_lost=self.float(
+                            entry.AdditionalStats.fastest_lap_pts
+                        ),
+                        total_dnf_dq_points=self.float(
+                            entry.AdditionalStats.fastest_lap_pts
+                        ),
+                        value_for_money=self.float(
+                            entry.AdditionalStats.value_for_money
+                        ),
+                        raw_api_model=entry,
+                    )
+                )
+            else:
+                raise ValueError(f"Unexpected value for {entry.PositionName}")
+
+        return data
+
+    async def fetch_team_info(self, team_id: str, race_id: int) -> leagues.LeagueTeam:
+        """Fetch a team that's in a shared league.
+
+        Parameters
+        ----------
+        team_id: str
+            The team to lookup
+        race_id: int
+            The race ID to get the drivers and constructors for.
+
+            1 indexed from the start of the year.
+
+            To get the current race id, call api.get_current_race_id()
+
+        Returns
+        -------
+        leagues.LeagueTeam
+        """
+        raw_data = await self.api.fetch_team_in_private_league(team_id, race_id)
+        user_team: UserTeamItem = raw_data.userTeam[0]
+        drivers_and_constructors = await self.fetch_constructors_and_drivers(race_id)
+        raw_team_entries: list[leagues.TeamEntry] = [
+            leagues.TeamEntry(
+                id=entry.id,
+                has_2x=commons.value_to_bool(entry.iscaptain),
+                has_3x=commons.value_to_bool(entry.ismgcaptain),
+            )
+            for entry in user_team.playerid
+        ]
+        drivers: list[models.Driver] = [
+            d for d in drivers_and_constructors if isinstance(d, models.Driver)
+        ]
+        constructors: list[models.Constructor] = [
+            d for d in drivers_and_constructors if isinstance(d, models.Constructor)
+        ]
+
+        return leagues.LeagueTeam(
+            drivers=drivers,
+            constructors=constructors,
+            raw_team_entries=raw_team_entries,
+            global_league_rank=self.int(user_team.ovrank),
+            points_from_this_race=self.float(user_team.gdpoints),
+            overall_points=self.float(user_team.ovpoints),
+            team_name=user_team.teamname,
+            current_booster=user_team.boosterid,
+            is_using_wild_card=commons.value_to_bool(user_team.iswildcard),
+            subs_allowed=user_team.subsallowed,
+            user_subs_left=user_team.usersubsleft,
+            extra_subs_cost=user_team.extrasubscost,
+            raw_api_model=raw_data,
         )
