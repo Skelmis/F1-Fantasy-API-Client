@@ -5,7 +5,7 @@ from fantasy import Client, APIClient
 
 
 async def main():
-    """Shows your highest place in all your private leagues."""
+    """Shows who your best driver is by F1's value for money calculation."""
     client = Client(
         APIClient(
             user_guid=os.environ["USER_GUID"],
