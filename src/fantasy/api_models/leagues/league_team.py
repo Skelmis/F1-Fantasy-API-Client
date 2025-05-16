@@ -39,7 +39,7 @@ class UserTeamItem(BaseAPIModel):
     team_info: TeamInfo
     fttourgdid: int
     fttourmdid: int
-    iswildcard: int
+    iswildcard: int | None
     maxteambal: float = Field(default=None)
     capplayerid: str
     subsallowed: int
@@ -52,22 +52,22 @@ class UserTeamItem(BaseAPIModel):
     finalfxracecat: None
     finalfxraceday: None
     isboostertaken: int | None
-    extradrstakengd: None
-    finalfixtakengd: None
-    isextradrstaken: int
-    isfinalfixtaken: int
-    iswildcardtaken: int
-    wildcardtakengd: int
-    autopilottakengd: None
-    isautopilottaken: int
-    islimitlesstaken: int
-    limitlesstakengd: None
-    isnonigativetaken: int
-    nonigativetakengd: int
+    extradrstakengd: int | None
+    finalfixtakengd: int | None
+    isextradrstaken: int | None
+    isfinalfixtaken: int | None
+    iswildcardtaken: int | None
+    wildcardtakengd: int | None
+    autopilottakengd: int | None
+    isautopilottaken: int | None
+    islimitlesstaken: int | None
+    limitlesstakengd: int | None
+    isnonigativetaken: int | None
+    nonigativetakengd: int | None
     finalfxnewplayerid: None
     finalfxoldplayerid: None
     player_swap_details: None
-    is_wildcard_taken_gd_id: None
+    is_wildcard_taken_gd_id: int | None
     inactive_driver_penality_points: int
 
 

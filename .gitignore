@@ -7,6 +7,7 @@ __pycache__/
 test.py
 data_in
 uv.lock
+usage
 
 # C extensions
 *.so

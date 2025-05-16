@@ -20,6 +20,7 @@ class Base(BaseModel):
     sprint_points: float
     no_negative_points: float
     f1_player_id: str
+    player_id: str
     first_name: str
     last_name: str
     fastest_lap_points: float | None

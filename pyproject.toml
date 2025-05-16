@@ -1,6 +1,6 @@
 [project]
 name = "skelmis-f1-fantasy"
-version = "0.2.0"
+version = "0.3.0"
 description = "A performant, typed API for the Formula 1 Fantasy game ."
 readme = "README.md"
 authors = [
@@ -17,7 +17,7 @@ requires-python = ">=3.13"
 dependencies = [
     "httpx>=0.28.1",
     "pydantic>=2.11.3",
-    "skelmis-commons>=1.5.2",
+    "skelmis-commons>=1.6.1",
 ]
 
 [dependency-groups]

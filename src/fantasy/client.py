@@ -166,6 +166,7 @@ class Client:
                         sprint_points=self.float(entry.SprintPoints),
                         no_negative_points=self.float(entry.NoNegativePoints),
                         f1_player_id=entry.F1PlayerId,
+                        player_id=entry.PlayerId,
                         first_name=entry.FirstName,
                         last_name=entry.LastName,
                         fastest_lap_points=(
@@ -240,6 +241,7 @@ class Client:
                         sprint_points=self.float(entry.SprintPoints),
                         no_negative_points=self.float(entry.NoNegativePoints),
                         f1_player_id=entry.F1PlayerId,
+                        player_id=entry.PlayerId,
                         first_name=entry.FirstName,
                         last_name=entry.LastName,
                         fastest_lap_points=self.float(
@@ -309,16 +311,25 @@ class Client:
             )
             for entry in user_team.playerid
         ]
-        drivers: list[models.Driver] = [
-            d for d in drivers_and_constructors if isinstance(d, models.Driver)
-        ]
-        constructors: list[models.Constructor] = [
-            d for d in drivers_and_constructors if isinstance(d, models.Constructor)
+        drivers: dict[str, models.Driver] = {
+            d.player_id: d
+            for d in drivers_and_constructors
+            if isinstance(d, models.Driver)
+        }
+        constructors: dict[str, models.Constructor] = {
+            d.player_id: d
+            for d in drivers_and_constructors
+            if isinstance(d, models.Constructor)
+        }
+
+        has_drivers = [drivers[i.id] for i in raw_team_entries if i.id in drivers]
+        has_constructors = [
+            constructors[i.id] for i in raw_team_entries if i.id in constructors
         ]
 
         return leagues.LeagueTeam(
-            drivers=drivers,
-            constructors=constructors,
+            drivers=has_drivers,
+            constructors=has_constructors,
             raw_team_entries=raw_team_entries,
             global_league_rank=self.int(user_team.ovrank),
             points_from_this_race=self.float(user_team.gdpoints),
