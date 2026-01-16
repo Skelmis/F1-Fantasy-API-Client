@@ -18,7 +18,7 @@ class Client:
         self.api: APIClient = api_client
 
     @staticmethod
-    def float(value: typing.Any) -> float:
+    def to_float(value: typing.Any) -> float:
         """Helper function for string transforms"""
         try:
             return float(value)
@@ -26,7 +26,7 @@ class Client:
             return 0.0
 
     @staticmethod
-    def int(value: typing.Any) -> float:
+    def to_int(value: typing.Any) -> int:
         """Helper function for string transforms"""
         try:
             return int(value)
@@ -67,7 +67,7 @@ class Client:
             members=entrants,
             league_id=league_id,
             league_member_count=(
-                int(raw_data.leagueInfo.memCount)
+                self.to_int(raw_data.leagueInfo.memCount)
                 if raw_data.leagueInfo.memCount
                 else None
             ),
@@ -106,7 +106,9 @@ class Client:
                     league_type=league.leagueType,
                     is_league_admin=commons.value_to_bool(league.leagueAdmin),
                     member_count=(
-                        int(league.memeberCount) if league.memeberCount else None
+                        self.to_int(league.memeberCount)
+                        if league.memeberCount
+                        else None
                     ),
                     league_vip_flag=league.legaueVipFlag,
                     teams_in_league=teams_in_league,
@@ -155,67 +157,67 @@ class Client:
                         driver_tla=entry.DriverTLA,
                         driver_reference=entry.DriverReference,
                         country_name=entry.CountryName,
-                        overall_points=self.float(entry.OverallPpints),
-                        points_in_this_race=self.float(entry.GamedayPoints),
-                        percentage_selected=self.float(entry.SelectedPercentage),
-                        percentage_as_2x=self.float(entry.CaptainSelectedPercentage),
-                        best_race_finish=self.int(entry.BestRaceFinished),
-                        highest_grid_start=self.int(entry.HigestGridStart),
-                        qualy_points=self.float(entry.QualifyingPoints),
-                        race_points=self.float(entry.RacePoints),
-                        sprint_points=self.float(entry.SprintPoints),
-                        no_negative_points=self.float(entry.NoNegativePoints),
+                        overall_points=self.to_float(entry.OverallPpints),
+                        points_in_this_race=self.to_float(entry.GamedayPoints),
+                        percentage_selected=self.to_float(entry.SelectedPercentage),
+                        percentage_as_2x=self.to_float(entry.CaptainSelectedPercentage),
+                        best_race_finish=self.to_int(entry.BestRaceFinished),
+                        highest_grid_start=self.to_int(entry.HigestGridStart),
+                        qualy_points=self.to_float(entry.QualifyingPoints),
+                        race_points=self.to_float(entry.RacePoints),
+                        sprint_points=self.to_float(entry.SprintPoints),
+                        no_negative_points=self.to_float(entry.NoNegativePoints),
                         f1_player_id=entry.F1PlayerId,
                         player_id=entry.PlayerId,
                         first_name=entry.FirstName,
                         last_name=entry.LastName,
                         fastest_lap_points=(
-                            self.float(entry.AdditionalStats.fastest_lap_pts)
+                            self.to_float(entry.AdditionalStats.fastest_lap_pts)
                             if entry.AdditionalStats
                             else None
                         ),
                         driver_of_the_day_points=(
-                            self.float(entry.AdditionalStats.fastest_lap_pts)
+                            self.to_float(entry.AdditionalStats.fastest_lap_pts)
                             if entry.AdditionalStats
                             else None
                         ),
                         overtaking_points=(
-                            self.float(entry.AdditionalStats.fastest_lap_pts)
+                            self.to_float(entry.AdditionalStats.fastest_lap_pts)
                             if entry.AdditionalStats
                             else None
                         ),
                         q3_finishes_points=(
-                            self.float(entry.AdditionalStats.fastest_lap_pts)
+                            self.to_float(entry.AdditionalStats.fastest_lap_pts)
                             if entry.AdditionalStats
                             else None
                         ),
                         top_10_race_positions_points=(
-                            self.float(entry.AdditionalStats.fastest_lap_pts)
+                            self.to_float(entry.AdditionalStats.fastest_lap_pts)
                             if entry.AdditionalStats
                             else None
                         ),
                         top_8_sprint_positions_points=(
-                            self.float(entry.AdditionalStats.fastest_lap_pts)
+                            self.to_float(entry.AdditionalStats.fastest_lap_pts)
                             if entry.AdditionalStats
                             else None
                         ),
                         total_position_points=(
-                            self.float(entry.AdditionalStats.fastest_lap_pts)
+                            self.to_float(entry.AdditionalStats.fastest_lap_pts)
                             if entry.AdditionalStats
                             else None
                         ),
                         total_position_gained_lost=(
-                            self.float(entry.AdditionalStats.fastest_lap_pts)
+                            self.to_float(entry.AdditionalStats.fastest_lap_pts)
                             if entry.AdditionalStats
                             else None
                         ),
                         total_dnf_dq_points=(
-                            self.float(entry.AdditionalStats.fastest_lap_pts)
+                            self.to_float(entry.AdditionalStats.fastest_lap_pts)
                             if entry.AdditionalStats
                             else None
                         ),
                         value_for_money=(
-                            self.float(entry.AdditionalStats.value_for_money)
+                            self.to_float(entry.AdditionalStats.value_for_money)
                             if entry.AdditionalStats
                             else None
                         ),
@@ -230,48 +232,48 @@ class Client:
                         full_name=entry.FUllName,
                         display_name=entry.DisplayName,
                         team_name=entry.TeamName,
-                        overall_points=self.float(entry.OverallPpints),
-                        points_in_this_race=self.float(entry.GamedayPoints),
-                        percentage_selected=self.float(entry.SelectedPercentage),
-                        percentage_as_2x=self.float(entry.CaptainSelectedPercentage),
-                        best_race_finish=self.int(entry.BestRaceFinished),
-                        highest_grid_start=self.int(entry.HigestGridStart),
-                        qualy_points=self.float(entry.QualifyingPoints),
-                        race_points=self.float(entry.RacePoints),
-                        sprint_points=self.float(entry.SprintPoints),
-                        no_negative_points=self.float(entry.NoNegativePoints),
+                        overall_points=self.to_float(entry.OverallPpints),
+                        points_in_this_race=self.to_float(entry.GamedayPoints),
+                        percentage_selected=self.to_float(entry.SelectedPercentage),
+                        percentage_as_2x=self.to_float(entry.CaptainSelectedPercentage),
+                        best_race_finish=self.to_int(entry.BestRaceFinished),
+                        highest_grid_start=self.to_int(entry.HigestGridStart),
+                        qualy_points=self.to_float(entry.QualifyingPoints),
+                        race_points=self.to_float(entry.RacePoints),
+                        sprint_points=self.to_float(entry.SprintPoints),
+                        no_negative_points=self.to_float(entry.NoNegativePoints),
                         f1_player_id=entry.F1PlayerId,
                         player_id=entry.PlayerId,
                         first_name=entry.FirstName,
                         last_name=entry.LastName,
-                        fastest_lap_points=self.float(
+                        fastest_lap_points=self.to_float(
                             entry.AdditionalStats.fastest_lap_pts
                         ),
-                        driver_of_the_day_points=self.float(
+                        driver_of_the_day_points=self.to_float(
                             entry.AdditionalStats.fastest_lap_pts
                         ),
-                        overtaking_points=self.float(
+                        overtaking_points=self.to_float(
                             entry.AdditionalStats.fastest_lap_pts
                         ),
-                        q3_finishes_points=self.float(
+                        q3_finishes_points=self.to_float(
                             entry.AdditionalStats.fastest_lap_pts
                         ),
-                        top_10_race_positions_points=self.float(
+                        top_10_race_positions_points=self.to_float(
                             entry.AdditionalStats.fastest_lap_pts
                         ),
-                        top_8_sprint_positions_points=self.float(
+                        top_8_sprint_positions_points=self.to_float(
                             entry.AdditionalStats.fastest_lap_pts
                         ),
-                        total_position_points=self.float(
+                        total_position_points=self.to_float(
                             entry.AdditionalStats.fastest_lap_pts
                         ),
-                        total_position_gained_lost=self.float(
+                        total_position_gained_lost=self.to_float(
                             entry.AdditionalStats.fastest_lap_pts
                         ),
-                        total_dnf_dq_points=self.float(
+                        total_dnf_dq_points=self.to_float(
                             entry.AdditionalStats.fastest_lap_pts
                         ),
-                        value_for_money=self.float(
+                        value_for_money=self.to_float(
                             entry.AdditionalStats.value_for_money
                         ),
                         raw_api_model=entry,
@@ -331,9 +333,9 @@ class Client:
             drivers=has_drivers,
             constructors=has_constructors,
             raw_team_entries=raw_team_entries,
-            global_league_rank=self.int(user_team.ovrank),
-            points_from_this_race=self.float(user_team.gdpoints),
-            overall_points=self.float(user_team.ovpoints),
+            global_league_rank=self.to_int(user_team.ovrank),
+            points_from_this_race=self.to_float(user_team.gdpoints),
+            overall_points=self.to_float(user_team.ovpoints),
             team_name=user_team.teamname,
             current_booster=user_team.boosterid,
             is_using_wild_card=commons.value_to_bool(user_team.iswildcard),
